@@ -1,4 +1,4 @@
-import { Author } from './connectors';
+import { Author, View } from './connectors';
 
 const resolvers = {
   Query: {
@@ -15,7 +15,12 @@ const resolvers = {
     author(post) {
       return post.getAuthor();
     },
+    views(post) {
+      return View.findOne({ postId: post.id })
+             .then((view) => view.views);
+    },
   },
+
 };
 
 export default resolvers;
