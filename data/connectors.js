@@ -2,6 +2,7 @@ import Mongoose from 'mongoose';
 import Sequelize from 'sequelize';
 import casual from 'casual';
 import _ from 'lodash';
+import rp from 'request-promise';
 
 const mongo = Mongoose.connect('mongodb://localhost/views');
 
@@ -9,6 +10,16 @@ const ViewSchema = Mongoose.Schema({
   postId: Number,
   views: Number,
 });
+
+const FortuneCookie = {
+  getOne() {
+    return rp('http://fortunecookieapi.com/v1/cookie')
+      .then((res) => JSON.parse(res))
+      .then((res) => {
+        return res[0].fortune.message;
+      });
+  },
+};
 
 const View = Mongoose.model('views', ViewSchema);
 
@@ -53,4 +64,4 @@ db.sync({ force: true }).then(() => {
 const Author = db.models.author;
 const Post = db.models.post;
 
-export { Author, Post, View };
+export { Author, Post, View, FortuneCookie };
