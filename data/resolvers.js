@@ -5,6 +5,7 @@ const resolvers = {
     author(_, args) {
       return Author.find({ where: args });
     },
+    /* REST API */
     getFortuneCookie() {
       return FortuneCookie.getOne();
     },
