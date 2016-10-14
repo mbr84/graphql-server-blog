@@ -19,6 +19,7 @@ const resolvers = {
     author(post) {
       return post.getAuthor();
     },
+    /* mongodb */
     views(post) {
       return View.findOne({ postId: post.id })
              .then((view) => view.views);
